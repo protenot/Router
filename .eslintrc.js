@@ -5,6 +5,7 @@ module.exports = {
         "jest/globals": true,
     },
     "extends": [
+        "prettier",
         //"standard-with-typescript",
         "eslint:recommended",
         "plugin:@typescript-eslint/eslint-recommended",
