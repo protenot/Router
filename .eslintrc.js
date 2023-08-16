@@ -21,7 +21,7 @@ module.exports = {
     plugins: ["jest", "import"],
     "rules": {
         "no-undef":"off",
-        
+        "@typescript-eslint/no-var-requires":"off",
         "import/prefer-default-export": "off",
         "import/no-unresolved": "off",
         "import/extensions": ["warn", "never"],
