@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "lint": "prettier --check . && eslint .",
-    "lint:fix": "prettier --write . && eslint . --fix",
+    "build": "webpack build --node-env production",
+    "lint": "prettier --check . && eslint . --ext .ts",
+    "lint:fix": "prettier --write . && eslint . --fix --ext .ts",
     "test": "jest",
     "prepare": "husky install"
   },

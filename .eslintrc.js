@@ -18,7 +18,9 @@ module.exports = {
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    plugins: ["jest", "import"],
+    parser:"@typescript-eslint/parser",
+    plugins: ["jest", "import", "@typescript-eslint"],
+    root:true,
     "rules": {
         "no-undef":"off",
         "@typescript-eslint/no-var-requires":"off",
