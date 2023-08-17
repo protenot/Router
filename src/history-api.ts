@@ -1,8 +1,9 @@
 // 0. Create a render function for visual debugging purposes
 export const render = () => {
   const route = location.pathname;
-  console.log(route);
+
   document.getElementById("root").innerHTML = `<h2>"${route}" page</h2>`;
+  console.log(route);
 };
 
 // 1. Handle initial page load

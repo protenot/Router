@@ -1,11 +1,13 @@
 import { render } from "./history-api";
 import { Router } from "./practice";
 import { iArgs } from "./Types";
+
 const createRender =
   (content: string) =>
   (...args: iArgs[]) => {
     console.info(`${content} args=${JSON.stringify(args)}`);
-    document.getElementById("root").innerHTML = `<h2>${content}</h2>`;
+
+    //  document.getElementById("root").innerHTML = `<h2>${content}</h2>`;
   };
 console.log(createRender);
 const router = Router();
