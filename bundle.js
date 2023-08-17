@@ -15,8 +15,8 @@ __webpack_require__.r(__webpack_exports__);
 // 0. Create a render function for visual debugging purposes
 const render = () => {
   const route = location.pathname;
-  console.log(route);
   document.getElementById("root").innerHTML = `<h2>"${route}" page</h2>`;
+  console.log(route);
 };
 
 // 1. Handle initial page load
@@ -204,8 +204,10 @@ __webpack_require__.r(__webpack_exports__);
 
 const createRender = content => (...args) => {
   console.info(`${content} args=${JSON.stringify(args)}`);
-  document.getElementById("root").innerHTML = `<h2>${content}</h2>`;
+
+  //  document.getElementById("root").innerHTML = `<h2>${content}</h2>`;
 };
+
 console.log(createRender);
 const router = (0,_practice__WEBPACK_IMPORTED_MODULE_1__.Router)();
 let unsubscribe = router.on(/.*/, createRender("/.*"));
