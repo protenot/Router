@@ -18,16 +18,16 @@ module.exports = {
       arrowFunction: false,
     },
   },
-  //devtool: NODE_ENV === "production"?"hidden-source-map":"eval-source-map",
+  devtool: NODE_ENV === "production" ? "hidden-source-map" : "eval-source-map",
   resolve: {
     extensions: [".js", ".ts"],
   },
   module: {
     rules: [
-      /* {
+      {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
-      }, */
+      },
       {
         test: /\.html$/,
         use: "html-loader",
@@ -62,10 +62,13 @@ module.exports = {
   ],
 
   devServer: {
+    client: {
+      logging: "info",
+    },
     compress: false,
     open: true,
     port: 3000,
-    //hot: true,
+    hot: true,
     historyApiFallback: true,
   },
 };
