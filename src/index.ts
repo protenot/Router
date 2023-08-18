@@ -7,9 +7,10 @@ const createRender =
   (...args: iArgs[]) => {
     console.info(`${content} args=${JSON.stringify(args)}`);
 
-    //  document.getElementById("root").innerHTML = `<h2>${content}</h2>`;
+    document.getElementById("root").innerHTML = `<h2>${content}</h2>`;
+    console.log(content);
   };
-console.log(createRender);
+
 const router = Router();
 
 let unsubscribe = router.on(/.*/, createRender("/.*"));
@@ -29,7 +30,11 @@ router.on(
   (path) => path === "/contacts",
   createRender("/contacts"), // onEnter
   console.log("[leaving] /contacts"), // onLeave
+  () => {
+    console.log("[coming]/contacts");
+  },
 );
+//console.log (listen)
 router.on("/about", createRender("/about"));
 router.on("/about/us", createRender("/about/us"));
 

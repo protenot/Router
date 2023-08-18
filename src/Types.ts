@@ -10,5 +10,5 @@ export interface iListener {
   match: iMatch;
   onEnter: ((...args: iArgs[]) => () => void) | (() => void);
   onLeave?: (() => string | void) | void;
-  onBeforeEnter?: () => string | void | boolean;
+  onBeforeEnter?: () => string | void;
 }

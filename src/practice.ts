@@ -35,8 +35,9 @@ export function Router() {
     };
 
     onBeforeEnter && isMatch(match, currentPath) && onBeforeEnter();
-
+    console.log(onEnter);
     isMatch(match, currentPath) && onEnter(args);
+
     onLeave && isMatch(match, previousPath) && onLeave();
   };
 
@@ -60,12 +61,13 @@ export function Router() {
     match: iMatch,
     onEnter: ((...args: iArgs[]) => () => void) | (() => void),
     onLeave?: (() => string | void) | void,
-    onBeforeEnter?: () => string | void | boolean,
+    onBeforeEnter?: () => string | void,
   ) => {
     const id = generateId();
 
     const listener: iListener = { id, match, onEnter, onLeave, onBeforeEnter };
     listeners.push(listener);
+    console.log(listeners);
     handleListener(listener);
 
     return () => {
@@ -76,6 +78,7 @@ export function Router() {
 
   const go = (url: string, state?: string) => {
     previousPath = currentPath;
+
     history.pushState(state, url, url);
     currentPath = location.pathname;
 
