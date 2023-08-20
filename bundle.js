@@ -15,19 +15,21 @@ __webpack_require__.r(__webpack_exports__);
 // 0. Create a render function for visual debugging purposes
 const render = () => {
   const route = location.pathname;
-  document.getElementById("root").innerHTML = `<h2>"${route}" page</h2>`;
-  console.log(route);
+  document.getElementById("root").innerHTML = `<h2>"${route} page"</h2>`;
+  console.log("1" + route);
 };
 
 // 1. Handle initial page load
 window.addEventListener("load", () => {
   render(); // 👈
+  console.log("2");
 });
 
 // 2. Handle history navigations. alternative "window.onpopstate"
-window.addEventListener("popstate", event => {
+/* window.addEventListener("popstate", (event) => {
   render();
-});
+  console.log("3")
+}); */
 
 // 3. Catch <a> tag clicks + trigger change handler
 document.body.addEventListener("click", event => {
@@ -40,16 +42,18 @@ document.body.addEventListener("click", event => {
     foo: "bar",
     url
   }, document.title, url);
+  console.log(history.state);
   // history.replaceState({ foo: "bar" }, url, url);
   render(); // 👈
+  console.log("3");
 });
 
 /***/ }),
 
-/***/ "./src/practice.ts":
-/*!*************************!*\
-  !*** ./src/practice.ts ***!
-  \*************************/
+/***/ "./src/router.ts":
+/*!***********************!*\
+  !*** ./src/router.ts ***!
+  \***********************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -70,7 +74,7 @@ __webpack_require__.r(__webpack_exports__);
 
 //import { render } from "./history-api";
 
-function Router() {
+function Router(hash) {
   let listeners = [];
   let currentPath = location.pathname;
   let previousPath = null;
@@ -86,10 +90,12 @@ function Router() {
       previousPath,
       state: history.state
     };
-    onBeforeEnter && isMatch(match, currentPath) && onBeforeEnter();
     isMatch(match, currentPath) && onEnter(args);
     onLeave && isMatch(match, previousPath) && onLeave();
+    onBeforeEnter && isMatch(match, currentPath) && onBeforeEnter();
+    //console.log(onBeforeEnter);
   };
+
   const handleAllListeners = () => listeners.forEach(handleListener);
   const generateId = () => {
     const getRandomNumber = () => Math.floor(Math.random() * listeners.length * 1000);
@@ -110,6 +116,7 @@ function Router() {
       onBeforeEnter
     };
     listeners.push(listener);
+    console.log(listeners);
     handleListener(listener);
     return () => {
       console.log("removed");
@@ -118,9 +125,13 @@ function Router() {
   };
   const go = (url, state) => {
     previousPath = currentPath;
-    history.pushState(state, url, url);
-    currentPath = location.pathname;
-    handleAllListeners();
+    if (hash === true) {
+      window.location.hash = url;
+    } else {
+      history.pushState(state, url, url);
+      currentPath = location.pathname;
+      handleAllListeners();
+    }
   };
 
   // window.addEventListener("popstate", handleAllListeners);
@@ -130,8 +141,6 @@ function Router() {
     go
   };
 }
-
-// USAGE
 
 /***/ })
 
@@ -199,40 +208,50 @@ var __webpack_exports__ = {};
   \**********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _history_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./history-api */ "./src/history-api.ts");
-/* harmony import */ var _practice__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./practice */ "./src/practice.ts");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./router */ "./src/router.ts");
 
 
 const createRender = content => (...args) => {
   console.info(`${content} args=${JSON.stringify(args)}`);
-
-  //  document.getElementById("root").innerHTML = `<h2>${content}</h2>`;
+  document.getElementById("root").innerHTML = `<h2>${content}</h2>`;
+  console.log(content);
 };
-
-console.log(createRender);
-const router = (0,_practice__WEBPACK_IMPORTED_MODULE_1__.Router)();
-let unsubscribe = router.on(/.*/, createRender("/.*"));
+const router = (0,_router__WEBPACK_IMPORTED_MODULE_1__.Router)();
 router.on("/", () => {
   console.log("home");
-}, unsubscribe(), () => {
-  unsubscribe = router.on(/.*/, createRender("/.*"));
-});
-router.on(path => path === "/contacts", createRender("/contacts"),
+},
 // onEnter
-console.log("[leaving] /contacts") // onLeave
-);
+console.log("[leaving] /home"),
+//onLeaving
+() => {
+  console.log("[coming]/home"); // onBeforeEnter
+});
 
-router.on("/about", createRender("/about"));
-router.on("/about/us", createRender("/about/us"));
+router.on("/contacts", createRender("/contacts"),
+// onEnter
+console.log("[leaving] /contacts"),
+// onLeave
+() => {
+  console.log("[coming]/"); // onBeforeEnter
+});
+
+router.on("/about", createRender("/about"), console.log("[leaving] /about"), () => {
+  console.log("[coming/about]");
+});
+router.on("/about/us", createRender("/about/us"), console.log("[leaving] /about/us"), () => {
+  console.log("[coming/about/us]");
+});
 document.body.addEventListener("click", event => {
+  console.log("5");
   if (event.target && !event.target.matches("a")) {
     return;
   }
   event.preventDefault();
   const url = event.target.getAttribute("href");
   router.go(url);
-  unsubscribe();
 });
 window.addEventListener("popstate", () => {
+  console.log("4");
   (0,_history_api__WEBPACK_IMPORTED_MODULE_0__.render)();
 });
 }();
