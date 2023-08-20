@@ -1,17 +1,17 @@
 // 0. Create a render function for visual debugging purposes
-const render = () => {
+const renderHash = () => {
   const route = location.hash.replace("#", "") || "/";
   document.getElementById("root").innerHTML = `<h2>"${route}" page</h2>`;
 };
 
 // 1. Handle initial page load
 window.addEventListener("load", () => {
-  render(); // 👈
+  renderHash(); // 👈
 });
 
 // 2. Handle hash changes
 window.addEventListener("hashchange", () => {
-  render(); // 👈
+  renderHash(); // 👈
 });
 
 // 3. Catch <a> tag clicks
@@ -26,4 +26,3 @@ document.body.addEventListener("click", (event) => {
   // location.href = url; // reloads page
   // location.replace(url); // reloads page
 });
-//render()

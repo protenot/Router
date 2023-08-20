@@ -1,5 +1,5 @@
 import { render } from "./history-api";
-import { Router } from "./practice";
+import { Router } from "./router";
 import { iArgs } from "./Types";
 
 const createRender =
@@ -50,15 +50,16 @@ router.on(
 );
 
 document.body.addEventListener("click", (event) => {
+  console.log("5");
   if (event.target && !(event.target as HTMLElement).matches("a")) {
     return;
   }
   event.preventDefault();
   const url = (event.target as HTMLElement).getAttribute("href");
   router.go(url);
-  //unsubscribe();
 });
 
 window.addEventListener("popstate", () => {
+  console.log("4");
   render();
 });

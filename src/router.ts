@@ -12,7 +12,7 @@
 
 //import { render } from "./history-api";
 import { iListener, iMatch, iArgs } from "./Types";
-export function Router() {
+export function Router(hash?: boolean) {
   let listeners: iListener[] = [];
   let currentPath = location.pathname;
   let previousPath: string | null = null;
@@ -78,11 +78,14 @@ export function Router() {
 
   const go = (url: string, state?: string) => {
     previousPath = currentPath;
+    if (hash === true) {
+      window.location.hash = url;
+    } else {
+      history.pushState(state, url, url);
+      currentPath = location.pathname;
 
-    history.pushState(state, url, url);
-    currentPath = location.pathname;
-
-    handleAllListeners();
+      handleAllListeners();
+    }
   };
 
   // window.addEventListener("popstate", handleAllListeners);
