@@ -33,12 +33,12 @@ export function Router() {
       previousPath,
       state: history.state,
     };
-
-    onBeforeEnter && isMatch(match, currentPath) && onBeforeEnter();
-    console.log(onEnter);
     isMatch(match, currentPath) && onEnter(args);
 
     onLeave && isMatch(match, previousPath) && onLeave();
+
+    onBeforeEnter && isMatch(match, currentPath) && onBeforeEnter();
+    //console.log(onBeforeEnter);
   };
 
   const handleAllListeners = () => listeners.forEach(handleListener);
@@ -89,5 +89,3 @@ export function Router() {
 
   return { on, go };
 }
-
-// USAGE

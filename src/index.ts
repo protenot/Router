@@ -13,30 +13,41 @@ const createRender =
 
 const router = Router();
 
-let unsubscribe = router.on(/.*/, createRender("/.*"));
-
 router.on(
   "/",
   () => {
     console.log("home");
-  },
-
-  unsubscribe(),
+  }, // onEnter
+  console.log("[leaving] /home"), //onLeaving
   () => {
-    unsubscribe = router.on(/.*/, createRender("/.*"));
+    console.log("[coming]/home"); // onBeforeEnter
   },
 );
 router.on(
-  (path) => path === "/contacts",
+  "/contacts",
   createRender("/contacts"), // onEnter
   console.log("[leaving] /contacts"), // onLeave
   () => {
-    console.log("[coming]/contacts");
+    console.log("[coming]/"); // onBeforeEnter
   },
 );
-//console.log (listen)
-router.on("/about", createRender("/about"));
-router.on("/about/us", createRender("/about/us"));
+
+router.on(
+  "/about",
+  createRender("/about"),
+  console.log("[leaving] /about"),
+  () => {
+    console.log("[coming/about]");
+  },
+);
+router.on(
+  "/about/us",
+  createRender("/about/us"),
+  console.log("[leaving] /about/us"),
+  () => {
+    console.log("[coming/about/us]");
+  },
+);
 
 document.body.addEventListener("click", (event) => {
   if (event.target && !(event.target as HTMLElement).matches("a")) {
@@ -45,7 +56,7 @@ document.body.addEventListener("click", (event) => {
   event.preventDefault();
   const url = (event.target as HTMLElement).getAttribute("href");
   router.go(url);
-  unsubscribe();
+  //unsubscribe();
 });
 
 window.addEventListener("popstate", () => {
