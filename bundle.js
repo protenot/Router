@@ -1,3 +1,11 @@
+/*
+ * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
 /******/ (function() { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
@@ -8,45 +16,17 @@
   \****************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: function() { return /* binding */ render; }
-/* harmony export */ });
-// 0. Create a render function for visual debugging purposes
-const render = () => {
-  const route = location.pathname;
-  document.getElementById("root").innerHTML = `<h2>"${route} page"</h2>`;
-  console.log("1" + route);
-};
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   render: function() { return /* binding */ render; }\n/* harmony export */ });\n// 0. Create a render function for visual debugging purposes\nconst render = () => {\n  const route = location.pathname;\n  document.getElementById(\"root\").innerHTML = `<h2>\"${route} page\"</h2>`;\n  console.log(\"1\" + route);\n};\n\n// 1. Handle initial page load\nwindow.addEventListener(\"load\", () => {\n  render(); // 👈\n  console.log(\"2\");\n});\n\n// 2. Handle history navigations. alternative \"window.onpopstate\"\n/* window.addEventListener(\"popstate\", (event) => {\n  render();\n  console.log(\"3\")\n}); */\n\n// 3. Catch <a> tag clicks + trigger change handler\ndocument.body.addEventListener(\"click\", event => {\n  if (event.target && !event.target.matches(\"a\")) {\n    return;\n  }\n  event.preventDefault();\n  const url = event.target && event.target.getAttribute(\"href\");\n  history.pushState({\n    foo: \"bar\",\n    url\n  }, document.title, url);\n  console.log(history.state);\n  // history.replaceState({ foo: \"bar\" }, url, url);\n  render(); // 👈\n  console.log(\"3\");\n});\n\n//# sourceURL=webpack://router/./src/history-api.ts?");
 
-// 1. Handle initial page load
-window.addEventListener("load", () => {
-  render(); // 👈
-  console.log("2");
-});
+/***/ }),
 
-// 2. Handle history navigations. alternative "window.onpopstate"
-/* window.addEventListener("popstate", (event) => {
-  render();
-  console.log("3")
-}); */
+/***/ "./src/index.ts":
+/*!**********************!*\
+  !*** ./src/index.ts ***!
+  \**********************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-// 3. Catch <a> tag clicks + trigger change handler
-document.body.addEventListener("click", event => {
-  if (event.target && !event.target.matches("a")) {
-    return;
-  }
-  event.preventDefault();
-  const url = event.target && event.target.getAttribute("href");
-  history.pushState({
-    foo: "bar",
-    url
-  }, document.title, url);
-  console.log(history.state);
-  // history.replaceState({ foo: "bar" }, url, url);
-  render(); // 👈
-  console.log("3");
-});
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _history_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./history-api */ \"./src/history-api.ts\");\n/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./router */ \"./src/router.ts\");\n\n\nconst createRender = content => (...args) => {\n  console.info(`${content} args=${JSON.stringify(args)}`);\n  document.getElementById(\"root\").innerHTML = `<h2>${content}</h2>`;\n  console.log(content);\n};\nconst router = (0,_router__WEBPACK_IMPORTED_MODULE_1__.Router)();\nrouter.on(\"/\", () => {\n  console.log(\"home\");\n},\n// onEnter\nconsole.log(\"[leaving] /home\"),\n//onLeaving\n() => {\n  console.log(\"[coming]/home\"); // onBeforeEnter\n});\n\nrouter.on(\"/contacts\", createRender(\"/contacts\"),\n// onEnter\nconsole.log(\"[leaving] /contacts\"),\n// onLeave\n() => {\n  console.log(\"[coming]/\"); // onBeforeEnter\n});\n\nrouter.on(\"/about\", createRender(\"/about\"), console.log(\"[leaving] /about\"), () => {\n  console.log(\"[coming/about]\");\n});\nrouter.on(\"/about/us\", createRender(\"/about/us\"), console.log(\"[leaving] /about/us\"), () => {\n  console.log(\"[coming/about/us]\");\n});\ndocument.body.addEventListener(\"click\", event => {\n  console.log(\"5\");\n  if (event.target && !event.target.matches(\"a\")) {\n    return;\n  }\n  event.preventDefault();\n  const url = event.target.getAttribute(\"href\");\n  router.go(url);\n});\nwindow.addEventListener(\"popstate\", () => {\n  console.log(\"4\");\n  (0,_history_api__WEBPACK_IMPORTED_MODULE_0__.render)();\n});\n\n//# sourceURL=webpack://router/./src/index.ts?");
 
 /***/ }),
 
@@ -56,91 +36,7 @@ document.body.addEventListener("click", event => {
   \***********************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Router: function() { return /* binding */ Router; }
-/* harmony export */ });
-/**
- * TODO: modify router.js to support
- * 1. unsubscribe function.
- *    Hint: inside router.js function return unsubscribe function,
- *          which will remove listener by id
- * 2. onLeave callback
- *    Hint: Add 3rd 'onLeave' parameter to Router.on + save in listener object
- *          Check in Router.handleListener if previousPath matches listener
- */
-
-// IMPLEMENTATION
-
-//import { render } from "./history-api";
-
-function Router(hash) {
-  let listeners = [];
-  let currentPath = location.pathname;
-  let previousPath = null;
-  const isMatch = (match, path) => match instanceof RegExp && match.test(path) || typeof match === "function" && match(path) || typeof match === "string" && match === path;
-  const handleListener = ({
-    match,
-    onEnter,
-    onLeave,
-    onBeforeEnter
-  }) => {
-    const args = {
-      currentPath,
-      previousPath,
-      state: history.state
-    };
-    isMatch(match, currentPath) && onEnter(args);
-    onLeave && isMatch(match, previousPath) && onLeave();
-    onBeforeEnter && isMatch(match, currentPath) && onBeforeEnter();
-    //console.log(onBeforeEnter);
-  };
-
-  const handleAllListeners = () => listeners.forEach(handleListener);
-  const generateId = () => {
-    const getRandomNumber = () => Math.floor(Math.random() * listeners.length * 1000);
-    const doesExist = id => listeners.find(listener => listener.id === id);
-    let id = getRandomNumber();
-    while (doesExist(id)) {
-      id = getRandomNumber();
-    }
-    return id;
-  };
-  const on = (match, onEnter, onLeave, onBeforeEnter) => {
-    const id = generateId();
-    const listener = {
-      id,
-      match,
-      onEnter,
-      onLeave,
-      onBeforeEnter
-    };
-    listeners.push(listener);
-    console.log(listeners);
-    handleListener(listener);
-    return () => {
-      console.log("removed");
-      listeners = listeners.filter(listener => listener.id !== id);
-    };
-  };
-  const go = (url, state) => {
-    previousPath = currentPath;
-    if (hash === true) {
-      window.location.hash = url;
-    } else {
-      history.pushState(state, url, url);
-      currentPath = location.pathname;
-      handleAllListeners();
-    }
-  };
-
-  // window.addEventListener("popstate", handleAllListeners);
-
-  return {
-    on,
-    go
-  };
-}
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   Router: function() { return /* binding */ Router; }\n/* harmony export */ });\n/**\n * TODO: modify router.js to support\n * 1. unsubscribe function.\n *    Hint: inside router.js function return unsubscribe function,\n *          which will remove listener by id\n * 2. onLeave callback\n *    Hint: Add 3rd 'onLeave' parameter to Router.on + save in listener object\n *          Check in Router.handleListener if previousPath matches listener\n */\n\n// IMPLEMENTATION\n\n//import { render } from \"./history-api\";\n\nfunction Router(hash) {\n  let listeners = [];\n  let currentPath = location.pathname;\n  console.log(currentPath);\n  let previousPath = null;\n  const isMatch = (match, path) => match instanceof RegExp && match.test(path) || typeof match === \"function\" && match(path) || typeof match === \"string\" && match === path;\n  const handleListener = ({\n    match,\n    onEnter,\n    onLeave,\n    onBeforeEnter\n  }) => {\n    const args = {\n      currentPath,\n      previousPath,\n      state: history.state\n    };\n    isMatch(match, currentPath) && onEnter(args);\n    console.log(match, currentPath);\n    onLeave && isMatch(match, previousPath) && onLeave();\n    onBeforeEnter && isMatch(match, currentPath) && onBeforeEnter();\n    //console.log(onBeforeEnter);\n  };\n\n  const handleAllListeners = () => listeners.forEach(handleListener);\n  const generateId = () => {\n    const getRandomNumber = () => Math.floor(Math.random() * listeners.length * 1000);\n    const doesExist = id => listeners.find(listener => listener.id === id);\n    let id = getRandomNumber();\n    while (doesExist(id)) {\n      id = getRandomNumber();\n    }\n    return id;\n  };\n  const on = (match, onEnter, onLeave, onBeforeEnter) => {\n    const id = generateId();\n    const listener = {\n      id,\n      match,\n      onEnter,\n      onLeave,\n      onBeforeEnter\n    };\n    listeners.push(listener);\n    console.log(listeners);\n    handleListener(listener);\n    return () => {\n      console.log(\"removed\");\n      listeners = listeners.filter(listener => listener.id !== id);\n    };\n  };\n  const go = (url, state) => {\n    previousPath = currentPath;\n    if (hash === true) {\n      window.location.hash = url;\n    } else {\n      history.pushState(state, url, url);\n      currentPath = location.pathname;\n      handleAllListeners();\n    }\n  };\n\n  // window.addEventListener(\"popstate\", handleAllListeners);\n\n  return {\n    on,\n    go\n  };\n}\n\n//# sourceURL=webpack://router/./src/router.ts?");
 
 /***/ })
 
@@ -200,60 +96,11 @@ function Router(hash) {
 /******/ 	}();
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-!function() {
-/*!**********************!*\
-  !*** ./src/index.ts ***!
-  \**********************/
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _history_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./history-api */ "./src/history-api.ts");
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./router */ "./src/router.ts");
-
-
-const createRender = content => (...args) => {
-  console.info(`${content} args=${JSON.stringify(args)}`);
-  document.getElementById("root").innerHTML = `<h2>${content}</h2>`;
-  console.log(content);
-};
-const router = (0,_router__WEBPACK_IMPORTED_MODULE_1__.Router)();
-router.on("/", () => {
-  console.log("home");
-},
-// onEnter
-console.log("[leaving] /home"),
-//onLeaving
-() => {
-  console.log("[coming]/home"); // onBeforeEnter
-});
-
-router.on("/contacts", createRender("/contacts"),
-// onEnter
-console.log("[leaving] /contacts"),
-// onLeave
-() => {
-  console.log("[coming]/"); // onBeforeEnter
-});
-
-router.on("/about", createRender("/about"), console.log("[leaving] /about"), () => {
-  console.log("[coming/about]");
-});
-router.on("/about/us", createRender("/about/us"), console.log("[leaving] /about/us"), () => {
-  console.log("[coming/about/us]");
-});
-document.body.addEventListener("click", event => {
-  console.log("5");
-  if (event.target && !event.target.matches("a")) {
-    return;
-  }
-  event.preventDefault();
-  const url = event.target.getAttribute("href");
-  router.go(url);
-});
-window.addEventListener("popstate", () => {
-  console.log("4");
-  (0,_history_api__WEBPACK_IMPORTED_MODULE_0__.render)();
-});
-}();
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.ts");
+/******/ 	
 /******/ })()
 ;
