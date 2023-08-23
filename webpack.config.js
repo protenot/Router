@@ -1,8 +1,8 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { NODE_ENV } = process.env;
-const PREFIX = NODE_ENV === "production" ? "/Router" : "/";
-
+//const PREFIX = NODE_ENV === "production" ? "/Router" : "/";
+const PREFIX = "/Router";
 module.exports = {
   mode: "development",
 
@@ -12,13 +12,13 @@ module.exports = {
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "./dist"),
-    publicPath: PREFIX,
+    publicPath: NODE_ENV === "production" ? PREFIX : "/",
     clean: true,
     environment: {
       arrowFunction: false,
     },
   },
-  devtool: NODE_ENV === "production" ? "hidden-source-map" : "eval-source-map",
+  //devtool: NODE_ENV === "production" ? "hidden-source-map" : "eval-source-map",
   resolve: {
     extensions: [".js", ".ts"],
   },

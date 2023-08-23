@@ -15,6 +15,7 @@ import { iListener, iMatch, iArgs } from "./Types";
 export function Router(hash?: boolean) {
   let listeners: iListener[] = [];
   let currentPath = location.pathname;
+  console.log(currentPath);
   let previousPath: string | null = null;
 
   const isMatch = (match: iMatch, path: string) =>
@@ -34,7 +35,7 @@ export function Router(hash?: boolean) {
       state: history.state,
     };
     isMatch(match, currentPath) && onEnter(args);
-
+    console.log(match, currentPath);
     onLeave && isMatch(match, previousPath) && onLeave();
 
     onBeforeEnter && isMatch(match, currentPath) && onBeforeEnter();
