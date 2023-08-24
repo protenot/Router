@@ -1,8 +1,8 @@
 //const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-export const { NODE_ENV } = process.env;
+const { NODE_ENV } = process.env;
 //const PREFIX = NODE_ENV === "production" ? "/Router" : "/";
-export const PREFIX = "/Router";
+const PREFIX = "/Router";
 module.exports = {
   mode: "development",
 

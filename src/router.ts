@@ -12,7 +12,7 @@
 
 //import { render } from "./history-api";
 import { iListener, iMatch, iArgs } from "./Types";
-import { PREFIX } from "../webpack.config";
+//import { PREFIX } from "../webpack.config";
 export function Router(hash?: boolean) {
   let listeners: iListener[] = [];
   let currentPath = location.pathname;
