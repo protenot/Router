@@ -37,9 +37,9 @@ document.body.addEventListener("click", (event) => {
     return;
   }
   event.preventDefault();
-  let url = event.target && (event.target as HTMLElement).getAttribute("href");
+  const url = event.target && (event.target as HTMLElement).getAttribute("href");
 
-  url = "/Router" + url;
+  //url = "/Router" + url;
   const href = window.location.href;
   /* document.querySelectorAll("a").forEach((link) => {
     link.href = PREFIX + link.pathname;
