@@ -26,10 +26,10 @@ window.addEventListener("load", () => {
   }); */
 
 // 2. Handle history navigations. alternative "window.onpopstate"
-/* window.addEventListener("popstate", (event) => {
+window.addEventListener("popstate", (event) => {
   render();
-  console.log("3")
-}); */
+  console.log("3");
+});
 
 // 3. Catch <a> tag clicks + trigger change handler
 document.body.addEventListener("click", (event) => {
@@ -37,7 +37,8 @@ document.body.addEventListener("click", (event) => {
     return;
   }
   event.preventDefault();
-  const url = event.target && (event.target as HTMLElement).getAttribute("href");
+  const url =
+    event.target && (event.target as HTMLElement).getAttribute("href");
 
   //url = "/Router" + url;
   const href = window.location.href;

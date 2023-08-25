@@ -10,7 +10,7 @@
 
 // IMPLEMENTATION
 
-//import { render } from "./history-api";
+import { render } from "./history-api";
 import { iListener, iMatch, iArgs } from "./Types";
 //import { PREFIX } from "../webpack.config";
 export function Router(hash?: boolean) {
@@ -35,6 +35,7 @@ export function Router(hash?: boolean) {
       previousPath,
       state: history.state,
     };
+    match = "/Router" + match;
     isMatch(match, currentPath) && onEnter(args);
     console.log(match, currentPath);
     onLeave && isMatch(match, previousPath) && onLeave();

@@ -1,4 +1,5 @@
 const path = require("path");
+import * as webpack from "webpack";
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { NODE_ENV } = process.env;
 //const PREFIX = NODE_ENV === "production" ? "/Router" : "/";
@@ -58,6 +59,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "./src/index.html"),
       filename: "404.html",
+    }),
+    new webpack.DefinePlugin({
+      PRODUCTION: NODE_ENV == "production",
+      PREFIX: JSON.stringify(PREFIX),
     }),
   ],
 

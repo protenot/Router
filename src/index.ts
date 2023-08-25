@@ -1,13 +1,16 @@
 import { render } from "./history-api";
 import { Router } from "./router";
 import { iArgs } from "./Types";
-//import { PREFIX } from "../webpack.config";
+//import { PRODUCTION } from "./global.d.ts";
+// if (PRODUCTION) {
 const aArray = document.querySelectorAll("a");
 console.log(aArray);
 aArray.forEach((link) => {
   link.href = "/Router" + link.pathname;
   console.log(aArray[0].href);
 });
+//}
+
 const createRender =
   (content: string) =>
   (...args: iArgs[]) => {
