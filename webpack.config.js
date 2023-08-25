@@ -60,10 +60,10 @@ module.exports = {
       template: path.resolve(__dirname, "./src/index.html"),
       filename: "404.html",
     }),
-    new webpack.DefinePlugin({
+    /* new webpack.DefinePlugin({
       PRODUCTION: NODE_ENV == "production",
       PREFIX: JSON.stringify(PREFIX),
-    }),
+    }), */
   ],
 
   devServer: {
