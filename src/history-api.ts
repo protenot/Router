@@ -1,29 +1,20 @@
 // 0. Create a render function for visual debugging purposes
 //import { PREFIX } from "../webpack.config";
-declare const PRODUCTION: boolean;
-declare const PREFIX: string;
+
 export const render = () => {
   const route = location.pathname;
-  const href = window.location.href;
+  //const href = window.location.href;
 
   document.getElementById("root").innerHTML = `<h2>"${route} page"</h2>`;
   console.log("1 " + route);
 };
 
-/*  *
-  document.querySelectorAll("a").forEach((link) => {
-    link.href = PREFIX + link.pathname;
-  });/
-
 // 1. Handle initial page load
+
 window.addEventListener("load", () => {
   render(); // 👈
   console.log("2");
 });
-
- /*    document.querySelectorAll("a").forEach((link) => {
-    link.pathname = PREFIX + link.pathname;
-  }); */
 
 // 2. Handle history navigations. alternative "window.onpopstate"
 window.addEventListener("popstate", (event) => {
@@ -39,7 +30,7 @@ document.body.addEventListener("click", (event) => {
   event.preventDefault();
   const url =
     event.target && (event.target as HTMLElement).getAttribute("href");
-
+  console.log(url);
   //url = "/Router" + url;
   const href = window.location.href;
   /* document.querySelectorAll("a").forEach((link) => {

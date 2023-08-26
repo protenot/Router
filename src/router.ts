@@ -1,13 +1,3 @@
-/**
- * TODO: modify router.js to support
- * 1. unsubscribe function.
- *    Hint: inside router.js function return unsubscribe function,
- *          which will remove listener by id
- * 2. onLeave callback
- *    Hint: Add 3rd 'onLeave' parameter to Router.on + save in listener object
- *          Check in Router.handleListener if previousPath matches listener
- */
-
 // IMPLEMENTATION
 
 import { render } from "./history-api";
@@ -37,7 +27,7 @@ export function Router(hash?: boolean) {
     };
     match = "/Router" + match;
     isMatch(match, currentPath) && onEnter(args);
-    console.log(match, currentPath);
+    // console.log(match, currentPath);
     onLeave && isMatch(match, previousPath) && onLeave();
 
     onBeforeEnter && isMatch(match, currentPath) && onBeforeEnter();
@@ -86,7 +76,7 @@ export function Router(hash?: boolean) {
     } else {
       history.pushState(state, url, url);
       currentPath = location.pathname;
-
+      //console.log(currentPath)
       handleAllListeners();
     }
   };
